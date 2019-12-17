@@ -152,5 +152,5 @@ io.on('connection', function(socket){
 });
 
 httpsServer.listen(port, function(){
-  console.log('listening on *:' + port);
+  console.log('listening on gg *:' + port);
 });
