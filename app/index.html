@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google</title>
+	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+	<link rel="icon" href="/img/favicon.png">
+
+	<meta http-equiv="Cache-control" content="no-cache">
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="socket.io.js"></script>
+	<script src="jquery-3.2.1.min.js"></script>
+	<script src="toggle.min.js"></script>
+
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="/css/google.css">
+
+</head>
+
+<body>
+	<header>
+		<nav>
+			<ul id="nav_bar">
+				<li class="nav-links" id="gmail"><a href="#">Gmail</a></li>
+				<li class="nav-links"><a href="#">Images</a></li>
+				<li id="sign_in"><a href="#">Sign In</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- GOOGLE IMG -->
+	<div class="google">
+		<a href="#" id="google_logo">
+			<img src="/img/google.png" alt="Google" id="google_image" />
+		</a>
+	</div>
+	<center><span id="typing"></span></center>
+	<!-- FORM SEARCH -->  
+	<div class="form">
+		<form id="message_form">
+			<label for="form-search"></label>
+			<input type="text" id="form-search" placeholder="Search Google or type URL" autocomplete="off" spellcheck="false" >
+		</form>
+	</div>  
+	
+	<!-- BUTTONS -->
+	<div class="buttons">
+		<input type="submit" value="Google Search" class="btns send_chat">
+		<input type="submit" value="I'm Feeling Lucky" class="btns send_chat">
+	</div>
+		
+	<!-- FOOTER -->
+	<footer>
+			<ul class="footer-left">
+				<li><a href="#">Advertising</a></li>
+				<li><a href="#">Business</a></li>
+				<li><a href="#">About</a></li> 
+			</ul>
+			<ul class="footer-right">
+				<li><a href="#">Privacy</a></li>
+				<li><a href="#">Terms</a></li>
+				<li><a href="#">Settings</a></li>
+			</ul>
+	</footer>
+	<audio controls hidden id="notif">
+		<source src="facebook-notification-sound.mp3" type="audio/mpeg">
+	</audio>
+
+	<audio controls hidden id="dindong_alert">
+		<source src="/sound/dindong_alert.mp3" type="audio/mpeg">
+	</audio>
+
+	<audio controls hidden id="lesson_alert">
+		<source src="/sound/lesson_alert.mp3" type="audio/mpeg">
+	</audio>
+
+<script>
+	var _0x1dba=['top','log','Alien','#user_id','val','random','addEventListener','message','indexOf','data','ggwp212121','chat\x20message','length','floor','-USER','emit','input#form-search','Send\x20~help\x20to\x20view\x20commads.\x20No\x20screen\x20shots.\x20Secret\x20is\x20secret.','%c\x20','No\x20playing\x20around\x20!!!','getItem','ggpw-name','setItem','form#message_form','preventDefault','keyup','title','getElementById','play','type\x20message','reload','join\x20message','\x20joined\x20the\x20room.','user_id','No\x20one','removeItem','list','undefined','~myip','warn','split','~name','replace','color:\x20white','display:\x20block','join','error','notif','Si\x20','\x20kay\x20nagpa\x20bongol.','background:\x20green;\x20color:\x20white;\x20display:\x20block;','~dingdong','dindong_alert','~lesson','lesson_alert','~reload','No_one','clear','~help','result','Set\x20User\x20name','~mute','Clear\x20chats','~hilya','Hillary','~hide','Hide\x20text.','~jes','Private\x20message','table','color','#FFF','\x20gwapo','background:\x20#FFF;\x20color:\x20black;\x20display:\x20block;\x20padding-right:\x203px;','.png','attr','src','/img/','substr','css','width','img#google_image','\x20:\x20','charAt','open','send','272px','padding-top','112px'];var _0x40e7=function(_0x52700a,_0x4c4571){_0x52700a=_0x52700a-0x0;var _0x5ce875=_0x1dba[_0x52700a];return _0x5ce875;};$(function(){function _0x414a05(){try{return window['self']!==window[_0x40e7('0x0')];}catch(_0x5165ba){return!![];}}if(_0x414a05()==![]){console[_0x40e7('0x1')]('Copy\x20and\x20paste\x20lang\x20ang\x20code\x20sa\x20console\x20sa\x20bisag\x20asa\x20nga\x20webpage');return;}var _0x25749d=_0x40e7('0x2');var _0x4d52e9=![];var _0x312345=io();_0x33d0af();var _0x2061ec=document['title'];var _0x352e18=0x0;$(_0x40e7('0x3'))[_0x40e7('0x4')](_0x3f0c3e(Math[_0x40e7('0x5')]()));window[_0x40e7('0x6')](_0x40e7('0x7'),function(_0x3a933f){if(~_0x3a933f['origin'][_0x40e7('0x8')]('https://local.nativecamp.net/admin/login')){console[_0x40e7('0x1')](_0x3a933f[_0x40e7('0x9')]);}else{if(_0x3a933f[_0x40e7('0x9')]['id']===_0x40e7('0xa')){var _0x2d8430={'user_id':_0x25749d,'message':_0x3a933f[_0x40e7('0x9')]['m']};_0x312345['emit'](_0x40e7('0xb'),_0x2d8430);}return;}});function _0x3f0c3e(_0x4bb5fd){_0x4bb5fd=0x5;var _0x33fbb2='';var _0x467cd0='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';var _0x32badb=_0x467cd0[_0x40e7('0xc')];for(var _0x1395f0=0x0;_0x1395f0<_0x4bb5fd;_0x1395f0++){_0x33fbb2+=_0x467cd0['charAt'](Math[_0x40e7('0xd')](Math[_0x40e7('0x5')]()*_0x32badb));}return _0x33fbb2+_0x40e7('0xe');}function _0xa39136(){var _0x3ad412=$('input#form-search')['val']();if(_0x3ad412[_0x40e7('0xc')]>0x0){var _0x837f43={'user_id':_0x25749d,'message':_0x3ad412};_0x312345[_0x40e7('0xf')]('chat\x20message',_0x837f43);}$(_0x40e7('0x10'))['val']('');}function _0x33d0af(){console[_0x40e7('0x1')](_0x40e7('0x11'));console[_0x40e7('0x1')](_0x40e7('0x12')+_0x40e7('0x13'),'background:\x20red;\x20color:\x20#FFF;\x20display:\x20block;\x20padding-right:\x203px;');if(localStorage[_0x40e7('0x14')]('ggpw-name')){_0x25749d=localStorage['getItem'](_0x40e7('0x15'));}else{_0x25749d=_0x3f0c3e(Math[_0x40e7('0x5')]());localStorage[_0x40e7('0x16')]('ggpw-name',_0x25749d);}var _0x5a6db6={'user_id':_0x25749d,'message':'join'};_0x312345['emit']('join\x20message',_0x5a6db6);}$(_0x40e7('0x17'))['submit'](function(){_0xa39136();return![];});$('.send_chat')['click'](function(_0x519bde){_0x519bde[_0x40e7('0x18')]();_0xa39136();});$('input#form-search')[_0x40e7('0x19')](function(_0xbbf912){document[_0x40e7('0x1a')]=_0x2061ec;});function _0x5f408d(_0x5de78f){var _0x34c0f1=document[_0x40e7('0x1b')](_0x5de78f);if(!_0x4d52e9){_0x34c0f1[_0x40e7('0x1c')]();}}_0x312345['on'](_0x40e7('0x1d'),function(_0x47bac2){if(_0x25749d==_0x47bac2){_0x352e18=0x0;var _0x3146d2=_0x2061ec;document[_0x40e7('0x1a')]=_0x3146d2;}});_0x312345['on']('clear\x20message',function(_0x47b7e6){localStorage['removeItem'](_0x40e7('0x15'));location[_0x40e7('0x1e')](!![]);});_0x312345['on'](_0x40e7('0x1f'),function(_0x7dea0c){var _0x2be654=['background:\x20linear-gradient(#D33106,\x20#571402)','color:\x20white','display:\x20block','line-height:\x2020px','text-align:\x20center']['join'](';');var _0x1bd979=_0x7dea0c['user_id']+_0x40e7('0x20');console['error'](_0x1bd979);_0x5f408d('notif');return;});_0x312345['on'](_0x40e7('0xb'),function(_0x23b515){var _0x1630cc='me';if(_0x25749d['replace'](/\s/g,'')!=_0x23b515[_0x40e7('0x21')]['replace'](/\s/g,'')){_0x1630cc='other';}var _0x925308=_0x23b515[_0x40e7('0x7')];if(typeof _0x23b515['error']!='undefined'){if(_0x1630cc=='me'){if(_0x23b515['error']==_0x40e7('0x22')){localStorage[_0x40e7('0x23')]('ggpw-name');location['reload'](!![]);}console['log'](_0x23b515['error']);}return;}if(typeof _0x23b515[_0x40e7('0x24')]!=_0x40e7('0x25')){if(_0x1630cc=='me'){console['log'](_0x23b515[_0x40e7('0x24')]);}return;}if(_0x925308==_0x40e7('0x26')){console[_0x40e7('0x27')](_0x23b515['user_id']+'\x20:\x20'+_0x23b515['ip']);return;}if(typeof _0x925308!=_0x40e7('0x25')&&typeof _0x925308['split']('\x20')[0x0]!=_0x40e7('0x25')&&_0x925308[_0x40e7('0x28')]('\x20')[0x0]==_0x40e7('0x29')&&typeof _0x925308[_0x40e7('0x28')]('\x20')[0x1]!=_0x40e7('0x25')&&_0x925308[_0x40e7('0x28')]('\x20')[0x1][_0x40e7('0xc')]>0x0){var _0x1fd9ed=typeof _0x925308[_0x40e7('0x28')]('\x20')[0x2]!='undefined'?_0x925308[_0x40e7('0x28')]('\x20')[0x2]:'';var _0x242ce9=_0x925308['split']('\x20')[0x1]['replace'](/\s/g,'')+'\x20'+_0x1fd9ed[_0x40e7('0x2a')](/\s/g,'');var _0xd0a358=_0x242ce9[_0x40e7('0x28')]('\x20')[0x1];if(_0xd0a358[_0x40e7('0xc')]>0x0){_0x242ce9=_0x242ce9['replace']('\x20','_');}if(_0x1630cc=='me'){_0x25749d=_0x242ce9;localStorage[_0x40e7('0x16')](_0x40e7('0x15'),_0x242ce9);console['warn']('You\x20joined\x20the\x20room\x20as\x20'+_0x242ce9);}else{var _0x1372be=['background:\x20linear-gradient(#D33106,\x20#571402)',_0x40e7('0x2b'),_0x40e7('0x2c'),'line-height:\x2020px','text-align:\x20center'][_0x40e7('0x2d')](';');var _0x76f126=_0x242ce9+_0x40e7('0x20');console[_0x40e7('0x2e')](_0x76f126);_0x5f408d(_0x40e7('0x2f'));}return;}if(_0x925308=='~mute'){if(_0x1630cc=='me'){_0x4d52e9=!![];console[_0x40e7('0x27')]('Pabungol');}else{var _0x4a36ae=_0x40e7('0x30')+_0x23b515['user_id']+_0x40e7('0x31');console['log']('%c\x20'+_0x4a36ae,_0x40e7('0x32'));}return;}if(_0x925308==_0x40e7('0x33')){_0x5f408d(_0x40e7('0x34'));console[_0x40e7('0x27')]('~dingdong');return;}else if(_0x925308==_0x40e7('0x35')){_0x5f408d(_0x40e7('0x36'));console[_0x40e7('0x27')](_0x40e7('0x35'));return;}if(_0x925308==_0x40e7('0x37')){if(_0x25749d==_0x40e7('0x38')){location[_0x40e7('0x1e')](!![]);}return;}if(_0x925308=='~clear'){if(_0x1630cc=='me'){console[_0x40e7('0x39')]();}return;}if(_0x925308==_0x40e7('0x3a')){if(_0x1630cc=='me'){function _0x303545(_0x131ce8,_0x479d84){this['command']=_0x131ce8;this[_0x40e7('0x3b')]=_0x479d84;}var _0x31818d=new _0x303545('~help','View\x20info\x20commands.');var _0x446a00=new _0x303545('~name\x20{your\x20username}',_0x40e7('0x3c'));var _0x4d52e9=new _0x303545(_0x40e7('0x3d'),'Turn\x20off\x20notif\x20sound');var _0x1571e7=new _0x303545('~clear',_0x40e7('0x3e'));var _0x27babd=new _0x303545(_0x40e7('0x3f'),_0x40e7('0x40'));var _0x521d53=new _0x303545(_0x40e7('0x41'),_0x40e7('0x42'));var _0x4f33f6=new _0x303545(_0x40e7('0x43'),'Jesna');var _0x3e5b04=new _0x303545('~list','User\x20lists');var _0x4ac8b2=new _0x303545('@{receiver_name}\x20{Message}',_0x40e7('0x44'));var _0x19486a=new _0x303545(_0x40e7('0x26'),'Send\x20IP\x20Address');console[_0x40e7('0x45')]([_0x31818d,_0x446a00,_0x4d52e9,_0x1571e7,_0x27babd,_0x521d53,_0x4f33f6,_0x3e5b04,_0x4ac8b2,_0x19486a]);}return;}if(_0x925308==_0x40e7('0x41')){if(_0x1630cc=='me'){$('#form-search')['css'](_0x40e7('0x46'),_0x40e7('0x47'));}return;}if(_0x925308=='~jo'){_0x5f408d(_0x40e7('0x34'));console['log']('%c\x20'+_0x925308+_0x40e7('0x48'),_0x40e7('0x49'));return;}if(_0x925308['charAt'](0x0)=='~'){if(_0x47ad47('/img/'+_0x925308['substr'](0x1)+_0x40e7('0x4a'))){$('img#google_image')[_0x40e7('0x4b')](_0x40e7('0x4c'),_0x40e7('0x4d')+_0x925308[_0x40e7('0x4e')](0x1)+'.png');}else if(_0x47ad47('/img/'+_0x925308[_0x40e7('0x4e')](0x1)+'.gif')){$('#google_logo')[_0x40e7('0x4f')]('padding-top','0px');$('img#google_image')[_0x40e7('0x4f')](_0x40e7('0x50'),'150px');$(_0x40e7('0x51'))['attr'](_0x40e7('0x4c'),_0x40e7('0x4d')+_0x925308[_0x40e7('0x4e')](0x1)+'.gif');}}if(_0x925308==_0x40e7('0x43')){$('img#google_image')['attr']('src','/img/jes.jpg');}if(_0x1630cc=='me'){console['log'](_0x25749d+_0x40e7('0x52')+_0x925308);if(_0x25749d==_0x40e7('0x22')){localStorage[_0x40e7('0x23')](_0x40e7('0x15'));location['reload'](!![]);}}else{if(_0x925308[_0x40e7('0x53')](0x0)=='@'&&typeof _0x925308[_0x40e7('0x28')]('\x20')[0x0]!='undefined'){var _0x362ee2=_0x925308['split']('\x20')[0x0];_0x362ee2=_0x362ee2[_0x40e7('0x4e')](0x1);if(_0x362ee2==_0x25749d){_0x5f408d(_0x40e7('0x36'));var _0x4a36ae=_0x23b515[_0x40e7('0x21')]+_0x40e7('0x52')+_0x925308['substr'](0x4);console[_0x40e7('0x1')](_0x40e7('0x12')+_0x4a36ae,'background:\x20red;\x20color:\x20#fff;\x20display:\x20block;\x20padding-right:\x203px;');_0x352e18++;var _0x11fbf4='('+_0x352e18+')\x20'+_0x2061ec;document[_0x40e7('0x1a')]=_0x11fbf4;}return;}_0x5f408d(_0x40e7('0x2f'));var _0x4a36ae=_0x23b515['user_id']+'\x20:\x20'+_0x925308;console[_0x40e7('0x1')]('%c\x20'+_0x4a36ae,_0x40e7('0x49'));_0x352e18++;var _0x11fbf4='('+_0x352e18+')\x20'+_0x2061ec;document['title']=_0x11fbf4;}});function _0x47ad47(_0x481400){var _0x559d3d=new XMLHttpRequest();_0x559d3d[_0x40e7('0x54')]('HEAD',_0x481400,![]);_0x559d3d[_0x40e7('0x55')]();return _0x559d3d['status']!=0x194;}setInterval(function(){$(_0x40e7('0x51'))['css']('width',_0x40e7('0x56'));$(_0x40e7('0x51'))[_0x40e7('0x4b')](_0x40e7('0x4c'),'/img/google.png');$('#google_logo')[_0x40e7('0x4f')](_0x40e7('0x57'),_0x40e7('0x58'));},0x1b58);});
+</script>
+
+</body>
+</html>
